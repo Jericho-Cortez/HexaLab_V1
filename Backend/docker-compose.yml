@@ -1,0 +1,33 @@
+services:
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./data:/data
+
+  worker:
+    build: .
+    command: ["celery", "-A", "app.worker.celery_app", "worker", "--loglevel=INFO"]
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./data:/data
+  
+  redis:
+    image: redis:7
+    # ports:
+    #  - "6381:6379"  # Modifié pour utiliser le port 6380 sur votre hôte, mappé au port 6379 du conteneur
+
+  data:
+    image: alpine
+    command: ["true"]
+    volumes:
+      - ./data:/data

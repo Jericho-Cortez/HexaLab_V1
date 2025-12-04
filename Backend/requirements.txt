@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+celery
+redis
+pydantic
+pydantic-settings
+pyyaml
+httpx
+pytest
+python-multipart
