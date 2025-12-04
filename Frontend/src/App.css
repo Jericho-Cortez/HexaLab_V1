@@ -640,3 +640,37 @@ body {
     background-position: 300px 300px, 300px 300px;
   }
 }
+
+.report-actions {
+  margin-top: 14px;
+}
+
+.secondary-btn {
+  border-radius: 999px;
+  padding: 10px 20px;
+  border: 1px solid rgba(156, 163, 201, 0.6);
+  background: rgba(5, 9, 32, 0.9);
+  color: #e2e6ff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(12, 18, 56, 0.95);
+  border-color: rgba(200, 210, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.report-header h2 {
+  margin: 0;
+  font-size: 17px;
+}

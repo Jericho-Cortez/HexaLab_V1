@@ -164,6 +164,178 @@ function App() {
       highWidth,
     };
   }, [report]);
+  const downloadPdf = () => {
+  if (!report) return;
+
+  const now = new Date().toLocaleString();
+  const fileName = file ? file.name : "Fichier inconnu";
+  const job = jobId || "N/A";
+
+  const vulnRows = (report.vulnerabilities || [])
+    .map(
+      (v) => `
+        <tr>
+          <td>${v.id || ""}</td>
+          <td>${v.package || ""}</td>
+          <td>${v.version || ""}</td>
+          <td>${v.severity || ""}</td>
+          <td>${v.url ? v.url : ""}</td>
+        </tr>
+      `
+    )
+    .join("");
+
+  const rawJson = JSON.stringify(report, null, 2);
+
+  const printWindow = window.open("", "_blank");
+  if (!printWindow) return;
+
+  printWindow.document.write(`
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <title>Rapport Hexalab</title>
+        <style>
+          body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #050716;
+            color: #f5f7ff;
+            padding: 24px;
+          }
+          h1, h2, h3 {
+            margin-top: 0;
+          }
+          .header {
+            text-align: center;
+            margin-bottom: 24px;
+          }
+          .logo-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 3px;
+          }
+          .meta {
+            font-size: 13px;
+            color: #c0c4f0;
+            margin-bottom: 18px;
+          }
+          .summary-box {
+            border-radius: 12px;
+            border: 1px solid #3c4680;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            background: #050716;
+            font-size: 14px;
+          }
+          .summary-grid {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+          }
+          .summary-item {
+            min-width: 120px;
+          }
+          .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #9ca3c9;
+          }
+          .value {
+            font-size: 18px;
+            font-weight: 700;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 12px;
+          }
+          th, td {
+            border: 1px solid #262b46;
+            padding: 6px 8px;
+          }
+          th {
+            background: #10152f;
+            text-align: left;
+          }
+          tbody tr:nth-child(even) {
+            background: #080b22;
+          }
+          .annexe {
+            margin-top: 28px;
+            font-size: 11px;
+          }
+          pre {
+            background: #050716;
+            border-radius: 10px;
+            border: 1px solid #262b46;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-break: break-word;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <div class="logo-title">HEXALAB – Rapport de scan</div>
+        </div>
+
+        <div class="meta">
+          <div><b>Fichier :</b> ${fileName}</div>
+          <div><b>Job ID :</b> ${job}</div>
+          <div><b>Date du rapport :</b> ${now}</div>
+        </div>
+
+        <div class="summary-box">
+          <div><b>Résumé :</b> ${report.summary || "N/A"}</div>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <div class="label">Total vulnérabilités</div>
+              <div class="value">${report.total_vulns ?? 0}</div>
+            </div>
+            <div class="summary-item">
+              <div class="label">Critiques</div>
+              <div class="value">${report.critical ?? 0}</div>
+            </div>
+            <div class="summary-item">
+              <div class="label">High</div>
+              <div class="value">${report.high ?? 0}</div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Détails des vulnérabilités (${(report.vulnerabilities || []).length})</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>CVE / ID</th>
+              <th>Package</th>
+              <th>Version</th>
+              <th>Gravité</th>
+              <th>Référence</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${vulnRows || "<tr><td colspan='5'>Aucune vulnérabilité détectée.</td></tr>"}
+          </tbody>
+        </table>
+
+        <div class="annexe">
+          <h3>Annexe – Données brutes du rapport (JSON)</h3>
+          <pre>${rawJson}</pre>
+        </div>
+      </body>
+    </html>
+  `);
+
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print(); // l’utilisateur choisit "Enregistrer au format PDF"
+};
+
 
   return (
     <div className="hexalab-root">
@@ -264,7 +436,13 @@ function App() {
 
           {report && (
   <div className="card report-card">
+    <div className="report-header">
     <h2>Résultat du scan</h2>
+    <button className="secondary-btn" onClick={downloadPdf}>
+        Télécharger le rapport (PDF)
+      </button>
+    </div>
+    
     <p className="report-summary">
       <b>Résumé :</b> {report.summary}
     </p>
