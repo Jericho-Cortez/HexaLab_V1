@@ -95,10 +95,11 @@ body {
 .hexalab-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
-  background: linear-gradient(90deg, rgba(3, 5, 19, 0.9), rgba(5, 9, 32, 0.98));
-  backdrop-filter: blur(16px);
+  justify-content: center;   /* centre le logo + texte */
+  padding: 24px 0 10px;      /* un peu d’espace mais pas de gros bandeau */
+  border: none;
+  background: transparent;   /* plus de bannière, on voit la grille derrière */
+  backdrop-filter: none;
   z-index: 2;
 }
 
