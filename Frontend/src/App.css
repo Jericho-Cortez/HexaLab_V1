@@ -109,11 +109,23 @@ body {
 }
 
 .hexalab-logo-text {
-  font-weight: 600;
+  font-family: "Orbitron", "Eurostile", sans-serif;
+  font-weight: 500;
   font-size: 40px;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
+  letter-spacing: 20px;
+
+  /* Dégradé plus clair → blanc renforcé */
+  background: linear-gradient(to bottom, #ffffff, #bfe8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Glow renforcé */
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 18px rgba(120, 200, 255, 0.9),
+    0 0 28px rgba(120, 200, 255, 0.7);
 }
+
 
 .hexalab-header .image img {
   width: 90px;

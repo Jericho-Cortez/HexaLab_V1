@@ -172,7 +172,7 @@ function App() {
           <div className="image">
             <img src="./hexalab_logo.png" alt="Hexalab Logo" />
           </div>
-          <span className="hexalab-logo-text">exalab</span>
+          <span className="hexalab-logo-text">EXALAB</span>
         </div>
       </header>
 
