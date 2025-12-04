@@ -351,27 +351,7 @@ function App() {
   </div>
 )}
         </section>
-
-        {/* Right panel simple stats (session) */}
-        <aside className="hexalab-right">
-          <div className="card">
-            <h3>Statistiques (session)</h3>
-            <ul className="stats-list">
-              <li>
-                <span>Total analyses</span>
-                <span>{report ? 1 : 0}</span>
-              </li>
-              <li>
-                <span>Avec alertes</span>
-                <span>{report && report.total_vulns > 0 ? 1 : 0}</span>
-              </li>
-              <li>
-                <span>Sans alertes</span>
-                <span>{report && report.total_vulns === 0 ? 1 : 0}</span>
-              </li>
-            </ul>
-          </div>
-        </aside>
+        
       </main>
 
       <footer className="hexalab-footer">
