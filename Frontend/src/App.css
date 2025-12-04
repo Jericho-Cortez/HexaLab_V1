@@ -116,6 +116,7 @@ body {
 
   /* Dégradé plus clair → blanc renforcé */
   background: linear-gradient(to bottom, #ffffff, #bfe8ff);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
