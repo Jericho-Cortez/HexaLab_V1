@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: hexalab-sbom
+Version: 0.1.0
+Summary: SBOM scanning and reporting API
+Requires-Python: >=3.10
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: celery
+Requires-Dist: redis
+Requires-Dist: pydantic
+Requires-Dist: pyyaml
+Requires-Dist: httpx
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"

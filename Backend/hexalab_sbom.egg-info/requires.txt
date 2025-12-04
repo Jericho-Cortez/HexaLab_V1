@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+celery
+redis
+pydantic
+pyyaml
+httpx
+
+[dev]
+pytest
+pytest-cov
