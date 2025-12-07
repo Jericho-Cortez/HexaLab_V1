@@ -317,6 +317,6 @@ HexaLab_V1/
 
 * **Jericho Cortez** — Frontend, UX & intégration React
 * **3uthym3nes** — Backend, API, Celery & architecture globale
-* **ChatGPT** — Support, documentation & assistance technique
+* **ChatGPT** —  Documentation README
 
 ---
